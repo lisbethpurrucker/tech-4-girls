@@ -10,4 +10,7 @@ class User < ApplicationRecord
   has_many :quizzes, through: :user_quizzes
   has_many :user_lessons
   has_many :lessons, through: :user_lessons
+
+  validates :first_name, :last_name, :user_name, presence: true
+  validates :user_name, uniqueness: true
 end

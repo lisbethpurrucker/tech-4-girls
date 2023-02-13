@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_104648) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_13_115341) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,8 +62,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_104648) do
   create_table "user_lessons", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "lesson_id", null: false
-    t.integer "status"
-    t.float "progress"
+    t.integer "status", default: 0
+    t.float "progress", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_user_lessons_on_lesson_id"
@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_104648) do
   create_table "user_quizzes", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "quiz_id", null: false
-    t.integer "status"
-    t.float "progress"
+    t.integer "status", default: 0
+    t.float "progress", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["quiz_id"], name: "index_user_quizzes_on_quiz_id"
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_104648) do
   create_table "user_worlds", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "world_id", null: false
-    t.boolean "active"
+    t.boolean "active", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_worlds_on_user_id"
