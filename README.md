@@ -1,24 +1,5 @@
-# README
+![Tech4Girls](https://res.cloudinary.com/djlggawlm/image/upload/v1664480251/Readme_d6heri.png)
+### About this project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Gamified quizz app for students of Tech4Girls.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
