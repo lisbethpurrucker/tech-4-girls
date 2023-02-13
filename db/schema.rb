@@ -10,9 +10,86 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_100712) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_13_104648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.string "content"
+    t.boolean "correct"
+    t.bigint "question_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "title"
+    t.integer "duration"
+    t.bigint "world_id", null: false
+    t.bigint "language_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_lessons_on_language_id"
+    t.index ["world_id"], name: "index_lessons_on_world_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "title"
+    t.bigint "quiz_id", null: false
+    t.boolean "multianswer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_questions_on_quiz_id"
+  end
+
+  create_table "quizzes", force: :cascade do |t|
+    t.integer "duration"
+    t.bigint "lesson_id", null: false
+    t.bigint "language_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["language_id"], name: "index_quizzes_on_language_id"
+    t.index ["lesson_id"], name: "index_quizzes_on_lesson_id"
+  end
+
+  create_table "user_lessons", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "lesson_id", null: false
+    t.integer "status"
+    t.float "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_user_lessons_on_lesson_id"
+    t.index ["user_id"], name: "index_user_lessons_on_user_id"
+  end
+
+  create_table "user_quizzes", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "quiz_id", null: false
+    t.integer "status"
+    t.float "progress"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_user_quizzes_on_quiz_id"
+    t.index ["user_id"], name: "index_user_quizzes_on_user_id"
+  end
+
+  create_table "user_worlds", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "world_id", null: false
+    t.boolean "active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_worlds_on_user_id"
+    t.index ["world_id"], name: "index_user_worlds_on_world_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -29,4 +106,32 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_100712) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "videos", force: :cascade do |t|
+    t.string "title"
+    t.string "link"
+    t.bigint "lesson_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lesson_id"], name: "index_videos_on_lesson_id"
+  end
+
+  create_table "worlds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "answers", "questions"
+  add_foreign_key "lessons", "languages"
+  add_foreign_key "lessons", "worlds"
+  add_foreign_key "questions", "quizzes"
+  add_foreign_key "quizzes", "languages"
+  add_foreign_key "quizzes", "lessons"
+  add_foreign_key "user_lessons", "lessons"
+  add_foreign_key "user_lessons", "users"
+  add_foreign_key "user_quizzes", "quizzes"
+  add_foreign_key "user_quizzes", "users"
+  add_foreign_key "user_worlds", "users"
+  add_foreign_key "user_worlds", "worlds"
+  add_foreign_key "videos", "lessons"
 end
