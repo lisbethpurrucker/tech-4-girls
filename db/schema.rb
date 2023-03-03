@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_13_115341) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_03_105547) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,20 +23,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_115341) do
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "languages", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "lessons", force: :cascade do |t|
     t.string "title"
     t.integer "duration"
     t.bigint "world_id", null: false
-    t.bigint "language_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_lessons_on_language_id"
     t.index ["world_id"], name: "index_lessons_on_world_id"
   end
 
@@ -52,10 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_115341) do
   create_table "quizzes", force: :cascade do |t|
     t.integer "duration"
     t.bigint "lesson_id", null: false
-    t.bigint "language_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["language_id"], name: "index_quizzes_on_language_id"
     t.index ["lesson_id"], name: "index_quizzes_on_lesson_id"
   end
 
@@ -119,13 +109,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_13_115341) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "language"
   end
 
   add_foreign_key "answers", "questions"
-  add_foreign_key "lessons", "languages"
   add_foreign_key "lessons", "worlds"
   add_foreign_key "questions", "quizzes"
-  add_foreign_key "quizzes", "languages"
   add_foreign_key "quizzes", "lessons"
   add_foreign_key "user_lessons", "lessons"
   add_foreign_key "user_lessons", "users"
