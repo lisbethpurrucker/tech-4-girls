@@ -57,7 +57,7 @@ Note that when you update the colors in `config/colors`, the (text) color of you
 Import Bootstrap:
 
 ```js
-// app/javascript/packs/application.js
+//app/javascript/packs/application.js
 import "bootstrap"
 ```
 
