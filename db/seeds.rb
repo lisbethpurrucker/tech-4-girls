@@ -96,17 +96,17 @@ questions.each do |q|
     puts "Answer created: #{Answer.last}"
   end
 end
-# If the world is active for the user, 1-3 UserLessons for each active UserWorld will be created.
+# If the world is active for the user, 1-2 UserLessons for each active UserWorld will be created.
 # For each UserLesson a UserQuiz is created.
 users.each do |user|
   user.user_worlds.where(active: true).each do |user_world|
-    lessons = user_world.world.lessons.sample(rand(1..3))
+    lessons = user_world.world.lessons.sample(rand(1..2))
     lessons.each do |lesson|
       UserLesson.create!(
         user_id: user.id,
         lesson_id: lesson.id,
         status: rand(-1..2),
-        progress: rand(0.0..10.0)
+        progress: rand(0.0..100.0)
       )
       puts "UserLesson created: #{UserLesson.last}"
       quiz = Quiz.where(lesson_id: lesson.id).first
