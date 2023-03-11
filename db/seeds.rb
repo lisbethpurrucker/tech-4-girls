@@ -1,7 +1,125 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+puts 'Destroying old seeds...'
+UserQuiz.destroy_all
+UserLesson.destroy_all
+Answer.destroy_all
+Question.destroy_all
+Quiz.destroy_all
+UserWorld.destroy_all
+User.destroy_all
+Lesson.destroy_all
+World.destroy_all
+
+puts 'Creating new seeds...'
+
+worlds_data = [
+  { name: 'CSS' },
+  { name: 'JavaScript' },
+  { name: 'HTML' }
+]
+worlds = World.create!(worlds_data)
+puts "Worlds created:"
+puts worlds
+
+# For each of our 3 Worlds we create 3 Lessons
+worlds.each do |world|
+  3.times do |i|
+    Lesson.create!(
+      title: "#{world.name} - Lesson #{i}",
+      duration: rand(15..60), # It's just to display duration to the user, so in min is ok?
+      world_id: world.id
+    )
+    puts "Lesson created: #{Lesson.last}"
+  end
+end
+
+# We create 3 Users
+users_data = [
+  { first_name: 'Lisbeth', last_name: 'Purrucker', email: 'lisbeth@lisbeth.com', password: '123456', user_name: 'lis' },
+  { first_name: 'Iwona', last_name: 'Behnke', email: 'iwona@iwona.com', password: '123456', user_name: 'iwo' },
+  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@emma.com', password: '123456', user_name: 'emm' }
+]
+users = User.create!(users_data)
+puts 'Users created:'
+puts users
+
+# For each User we create a UserWorld for each World. For now all of them are active.
+users.each do |user|
+  worlds.each do |world|
+    UserWorld.create!(user_id: user.id, world_id: world.id, active: true)
+    puts "UsersWorlds created: #{UserWorld.last}"
+  end
+end
+
+# We create 1 Quiz for each Lesson
+lessons = Lesson.all
+lessons.each do |lesson|
+  Quiz.create!(duration: rand(15..60), lesson_id: lesson.id)
+  puts "Quiz created: #{Quiz.last}"
+end
+
+# For each Quiz we create 3 questions.
+quizzes = Quiz.all
+quizzes.each do |quiz|
+  3.times do |i|
+    Question.create!(
+      title: "Lesson #{quiz.lesson.id} - Question about #{quiz.lesson.world.name} nr #{i}",
+      quiz_id: quiz.id,
+      multianswer: true
+      # multianswer: [true, false].sample --> DOES NOT WORK
+    )
+    puts "Question created: #{Question.last}"
+  end
+end
+
+# If question is multianswer it will have 2-5 Answers, some of them correct, some not.
+# If question is not multianswer it will have only one correct Answer.
+questions = Question.all
+charset = Array('A'..'Z')
+questions.each do |q|
+  if q.multianswer
+    answer_count = rand(2..5)
+    correct_index = rand(answer_count)
+    answer_count.times do |i|
+      Answer.create!(
+        content: Array.new(7) { charset.sample }.join,
+        # correct: i == correct_index, --> DOES NOT WORK
+        correct: true,
+        question_id: q.id
+      )
+      puts "Answer created: #{Answer.last}"
+    end
+  else
+    Answer.create!(
+      content: "Answer #{q.id}",
+      correct: true,
+      question_id: q.id
+    )
+    puts "Answer created: #{Answer.last}"
+  end
+end
+# If the world is active for the user, 1-3 UserLessons for each active UserWorld will be created.
+# For each UserLesson a UserQuiz is created.
+users.each do |user|
+  user.user_worlds.where(active: true).each do |user_world|
+    lessons = user_world.world.lessons.sample(rand(1..3))
+    lessons.each do |lesson|
+      UserLesson.create!(
+        user_id: user.id,
+        lesson_id: lesson.id,
+        status: rand(-1..2),
+        progress: rand(0.0..10.0)
+      )
+      puts "UserLesson created: #{UserLesson.last}"
+      quiz = Quiz.where(lesson_id: lesson.id).first
+      UserQuiz.create!(
+        user_id: user.id,
+        quiz_id: quiz.id,
+        status: rand(-1..2),
+        progress: rand(0.0..10.0)
+      )
+      puts "UserQuiz created: #{UserQuiz.last}"
+    end
+  end
+end
+
+puts 'Seed file done'
