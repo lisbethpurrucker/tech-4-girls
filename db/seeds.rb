@@ -64,8 +64,8 @@ quizzes.each do |quiz|
     Question.create!(
       title: "Lesson #{quiz.lesson.id} - Question about #{quiz.lesson.world.name} nr #{i}",
       quiz_id: quiz.id,
-      multianswer: true
-      # multianswer: [true, false].sample --> DOES NOT WORK
+      # multianswer: true
+      multianswer: [true, false].sample
     )
     puts "Question created: #{Question.last}"
   end
@@ -78,12 +78,11 @@ charset = Array('A'..'Z')
 questions.each do |q|
   if q.multianswer
     answer_count = rand(2..5)
-    correct_index = rand(answer_count)
+    correct_indexes = (0...answer_count).to_a.sample(rand(1..answer_count))
     answer_count.times do |i|
       Answer.create!(
         content: Array.new(7) { charset.sample }.join,
-        # correct: i == correct_index, --> DOES NOT WORK
-        correct: true,
+        correct: correct_indexes.include?(i),
         question_id: q.id
       )
       puts "Answer created: #{Answer.last}"
