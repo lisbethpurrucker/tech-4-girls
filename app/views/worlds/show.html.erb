@@ -1,6 +1,6 @@
 <div class="container">
   <h1>Welcome to <%=@world.name %>!</h1>
-  <p>Here's the beutiful map of all the lessons:</p>
+  <p>Here's the beautiful map of all the lessons:</p>
   <ul>
   <%@lessons.each do |lesson| %>
     <li><%= lesson.title %>, duration: <%=lesson.duration%> min</li>
