@@ -24,7 +24,7 @@ puts worlds
 worlds.each do |world|
   3.times do |i|
     Lesson.create!(
-      title: "#{world.name} - Lesson #{i}",
+      title: "#{world.name} - Lesson #{i+1}",
       duration: rand(15..60), # It's just to display duration to the user, so in min is ok?
       world_id: world.id
     )
@@ -36,7 +36,8 @@ end
 users_data = [
   { first_name: 'Lisbeth', last_name: 'Purrucker', email: 'lisbeth@lisbeth.com', password: '123456', user_name: 'lis' },
   { first_name: 'Iwona', last_name: 'Behnke', email: 'iwona@iwona.com', password: '123456', user_name: 'iwo' },
-  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@emma.com', password: '123456', user_name: 'emm' }
+  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@emma.com', password: '123456', user_name: 'emm' },
+  { first_name: 'Emre', last_name: 'Ebeturk', email: 'emre@emre.com', password: '123456', user_name: 'emr' }
 ]
 users = User.create!(users_data)
 puts 'Users created:'
