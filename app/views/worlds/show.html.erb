@@ -1,8 +1,10 @@
-<h1>Welcome to <%=@world.name %>!</h1>
-<p>Here's the beutiful map of all the lessons:</p>
-<ul>
-<%@lessons.each do |lesson| %>
-  <li><%= lesson.title %>, duration: <%=lesson.duration%> min</li>
-  <%= link_to "Start",  user_lesson_path(@user.user_name, lesson)%>
-<% end %>
-</ul>
+<div class="container">
+  <h1>Welcome to <%=@world.name %>!</h1>
+  <p>Here's the beutiful map of all the lessons:</p>
+  <ul>
+  <%@lessons.each do |lesson| %>
+    <li><%= lesson.title %>, duration: <%=lesson.duration%> min</li>
+    <%= link_to "Start",  user_lesson_path(@user.user_name, lesson)%>
+  <% end %>
+  </ul>
+</div>

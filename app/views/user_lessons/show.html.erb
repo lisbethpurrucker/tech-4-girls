@@ -1,9 +1,11 @@
-<h1>UserLessons#show</h1>
-<p>User: <%= @user.user_name %></p>
-<p>Title: <%= @lesson.title %></p>
-<p>Status: <%= @user_lesson.status %></p>
-<p>Progress: <%= number_to_percentage(@user_lesson.progress, precision: 0)%></p>
-<p>Here comes the content of the lesson</p>
-<p>and a video</p>
-<p>And a button to:</p>
-<%= link_to "Start the Quiz",  user_quiz_path(@user.user_name, @quiz)%>
+<div class="container">
+  <h1>UserLessons#show</h1>
+  <p>User: <%= @user.user_name %></p>
+  <p>Title: <%= @lesson.title %></p>
+  <p>Status: <%= @user_lesson.status %></p>
+  <p>Progress: <%= number_to_percentage(@user_lesson.progress, precision: 0)%></p>
+  <p>Here comes the content of the lesson</p>
+  <p>and a video</p>
+  <p>And a button to:</p>
+  <%= link_to "Start the Quiz",  user_quiz_path(@user.user_name, @quiz)%>
+</div>

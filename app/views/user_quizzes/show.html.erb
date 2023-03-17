@@ -1,5 +1,7 @@
-<h1>UserQuizzes#show</h1>
-<p>username: <%= @user.user_name %></p>
-<p>user_quiz_id: <%= @user_quiz.id %></p>
-<p>Status: <%= @user_quiz.status %></p>
-<p>Progress: <%= number_to_percentage(@user_quiz.progress, precision: 0)%></p>
+<div class="container">
+  <h1>UserQuizzes#show</h1>
+  <p>Username: <%= @user.user_name %></p>
+  <p>User_quiz_id: <%= @user_quiz.id %></p>
+  <p>Status: <%= @user_quiz.status %></p>
+  <p>Progress: <%= number_to_percentage(@user_quiz.progress, precision: 0)%></p>
+</div>
