@@ -40,7 +40,7 @@ end
 users_data = [
   { first_name: 'Lisbeth', last_name: 'Purrucker', email: 'lisbeth@lisbeth.com', password: '123456', user_name: 'lis' },
   { first_name: 'Iwona', last_name: 'Behnke', email: 'iwona@iwona.com', password: '123456', user_name: 'iwo' },
-  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@emma.com', password: '123456', user_name: 'emm' }
+  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@test.com', password: '123456', user_name: 'emmsi' }
 ]
 users = User.create!(users_data)
 puts 'Users created:'

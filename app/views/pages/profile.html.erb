@@ -1,3 +1,26 @@
 <div class="container">
-  <h2>👋 Hi, <%= current_user.first_name %>!</h2>
+  <div class="row">
+    <h1>👋 Hi, <%= current_user.first_name %>! And welcome to your personal Profile Page!</h1>
+    <p>Full Name: <%= current_user.first_name%> <%= current_user.last_name %></p>
+    <p>Username: <%= current_user.user_name %></p>
+  </div>
+  <div class="row">
+    <%# TODO My Level %>
+    <p>Your Level is at: TODO</p>
+  </div>
+  <div class="row">
+    <%# TODO General Overview %>
+    <p>Your Overall progress is at TODO%</p>
+    <%# @user_worlds %>
+  </div>
+  <div class="row">
+    <%# TODO Lessons %>
+    <p>You have accomplished TODO Lessons 💪</p>
+    <%# @user_lessons %>
+  </div>
+  <div class="row">
+    <%# TODO Quizzes %>
+    <p>You have accomplished TODO Quizzes 💪</p>
+    <%# @user_quizzes %>
+  </div>
 </div>
