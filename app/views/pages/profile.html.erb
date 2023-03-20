@@ -1,1 +1,44 @@
-<h1>Mission Control</h1>
+<div class="container">
+    <h1>Hey <%= current_user.first_name %>, and welcome to your personal Profile, young Learner!</h1>
+    <br>
+  <div class="row">
+    <h3>About You 🧞‍♀️</h3>
+    <p>Full Name: <%= current_user.first_name%> <%= current_user.last_name %></p>
+    <p>Username: <%= current_user.user_name %></p>
+  </div>
+  <br>
+
+  <div class="row">
+    <h3>About your Journey 🛸</h3>
+    <p>You're at Level <%= current_user.level %>/10 🎉</p>
+  </div>
+  <br>
+
+  <div class="row">
+    <%# TODO Overview Worlds %>
+    <p>You started <%= current_user.user_worlds.count %> worlds:</p>
+      <% current_user.user_worlds.each do |user_world| %>
+      <p>🌎 <%= user_world.world.name %> </p>
+      <% end%>
+  </div>
+  <br>
+
+  <div class="row">
+    <%# TODO Overview Lessons %>
+    <p>You have accomplished TODO Lessons 💪</p>
+    <%# @user_lessons %>
+    <%# <p>Status: <%= @user_lesson.status %></p>
+    <%# <p>Progress: <%= number_to_percentage(@user_lesson.progress, precision: 0)%>
+    <%# <%= link_to "Go to latest Lesson",  user_lesson_path(@user, @lesson)%>
+
+    <div class="user-quizzes">
+      <%# TODO Overview Quizzes %>
+      <p>You have accomplished TODO Quizzes 💪</p>
+      <%# <p>Progress: <%= number_to_percentage(@user_quiz.progress, precision: 0)%>
+      <%# @user_quizzes %>
+      <%# <%= link_to "Go to latest Quiz",  user_quiz_path(@user, @quiz)%>
+    </div>
+  </div>
+  <br>
+  <%= link_to 'Go back', root_path %>
+</div>

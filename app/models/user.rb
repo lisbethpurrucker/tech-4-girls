@@ -13,4 +13,8 @@ class User < ApplicationRecord
 
   validates :first_name, :last_name, :user_name, presence: true
   validates :user_name, uniqueness: true
+
+  def level
+    (user_lessons.average(:progress).to_i / 10) + 1
+  end
 end

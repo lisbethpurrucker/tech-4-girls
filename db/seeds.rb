@@ -1,4 +1,7 @@
-puts 'Destroying old seeds...'
+# frozen_string_literal: true
+
+puts 'Destroying old seeds... 🗑'
+
 UserQuiz.destroy_all
 UserLesson.destroy_all
 Answer.destroy_all
@@ -9,7 +12,7 @@ User.destroy_all
 Lesson.destroy_all
 World.destroy_all
 
-puts 'Creating new seeds...'
+puts 'Planting new seeds... 🌱🌱🌱'
 
 worlds_data = [
   { name: 'CSS' },
@@ -19,29 +22,30 @@ worlds_data = [
 worlds = World.create!(worlds_data)
 puts "Worlds created:"
 puts worlds
+puts '🌎 🌍 🌏 🌎 🌍 🌏'
 
 # For each of our 3 Worlds we create 3 Lessons
 worlds.each do |world|
   3.times do |i|
     Lesson.create!(
-      title: "#{world.name} - Lesson #{i+1}",
+      title: "#{world.name} - Lesson #{i + 1}",
       duration: rand(15..60), # It's just to display duration to the user, so in min is ok?
       world_id: world.id
     )
-    puts "Lesson created: #{Lesson.last}"
+    puts "👩‍🏫 Lesson created: #{Lesson.last}"
   end
 end
 
 # We create 3 Users
 users_data = [
-  { first_name: 'Lisbeth', last_name: 'Purrucker', email: 'lisbeth@lisbeth.com', password: '123456', user_name: 'lis' },
-  { first_name: 'Iwona', last_name: 'Behnke', email: 'iwona@iwona.com', password: '123456', user_name: 'iwo' },
-  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@emma.com', password: '123456', user_name: 'emm' },
-  { first_name: 'Emre', last_name: 'Ebeturk', email: 'emre@emre.com', password: '123456', user_name: 'emr' }
+  { first_name: 'Lisbeth', last_name: 'Purrucker', email: 'lisbeth@lisbeth.com', password: '123456', user_name: 'Lis' },
+  { first_name: 'Iwona', last_name: 'Behnke', email: 'iwona@iwona.com', password: '123456', user_name: 'Iwo' },
+  { first_name: 'Emma', last_name: 'Rünzel', email: 'emma@test.com', password: '123456', user_name: 'Emmsi' }
 ]
 users = User.create!(users_data)
 puts 'Users created:'
 puts users
+puts '👧🏻 👧🏼 👧🏾 👧🏿'
 
 # For each User we create a UserWorld for each World. For now all of them are active.
 users.each do |user|
@@ -50,6 +54,7 @@ users.each do |user|
     puts "UsersWorlds created: #{UserWorld.last}"
   end
 end
+puts '🌎 🙋🏻 🌍 🙋🏼 🌏 🙋🏽 🌎 🙋🏾 🌍 🙋🏿'
 
 # We create 1 Quiz for each Lesson
 lessons = Lesson.all
@@ -57,6 +62,7 @@ lessons.each do |lesson|
   Quiz.create!(duration: rand(15..60), lesson_id: lesson.id)
   puts "Quiz created: #{Quiz.last}"
 end
+puts '👩🏻‍🏫 👩🏼‍🏫 👩🏽‍🏫 👩🏾‍🏫 👩🏿‍🏫'
 
 # For each Quiz we create 3 questions.
 quizzes = Quiz.all
@@ -71,6 +77,7 @@ quizzes.each do |quiz|
     puts "Question created: #{Question.last}"
   end
 end
+puts '🙋🏻‍♀️ 🙋🏼‍♀️ 🙋🏽‍♀️ 🙋🏾‍♀️ 🙋🏿‍♀️'
 
 # If question is multianswer it will have 2-5 Answers, some of them correct, some not.
 # If question is not multianswer it will have only one correct Answer.
@@ -97,6 +104,8 @@ questions.each do |q|
     puts "Answer created: #{Answer.last}"
   end
 end
+puts '👏 👏 👏 👏'
+
 # If the world is active for the user, 1-2 UserLessons for each active UserWorld will be created.
 # For each UserLesson a UserQuiz is created.
 users.each do |user|
@@ -122,4 +131,4 @@ users.each do |user|
   end
 end
 
-puts 'Seed file done'
+puts 'Seed file done 🌱 🗺  🙇‍♀️ 🛸'
