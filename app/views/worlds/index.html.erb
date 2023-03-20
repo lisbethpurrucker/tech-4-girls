@@ -1,7 +1,9 @@
-<h1>All worlds</h1>
-<% @worlds.each do |world| %>
-  <section>
-    <h2><%= world.name %></h2>
-    <%= link_to "Explore",  world_path(world.name)%>
-  </section>
-<% end %>
+<div class="container">
+  <h1>All worlds</h1>
+  <% @worlds.each do |world| %>
+    <section>
+      <h2><%= world.name %></h2>
+      <%= link_to "Explore",  world_path(world.name)%>
+    </section>
+  <% end %>
+</div>
